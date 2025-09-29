@@ -8,7 +8,7 @@ class GetProductListUseCase {
 
   GetProductListUseCase({required this.homeRepository});
 
-  Future<Either<Failure, ProductModel>> call({required int page}) async {
-    return await homeRepository.getProductList(page: page);
+  Future<Either<Failure, ProductModel>> call({required int page, String? search}) async {
+    return await homeRepository.getProductList(page: page, search: search);
   }
 }

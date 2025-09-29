@@ -7,7 +7,7 @@ abstract class HomeRemoteDataSource {
   Future<void> saveProduct({required Product product});
 
   /// Get product list
-  Future<ProductModel> getProductList({required int page});
+  Future<ProductModel> getProductList({required int page, String? search});
 
   /// Delete product
   Future<void> deleteProduct({required String id});
@@ -33,9 +33,9 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   }
 
   @override
-  Future<ProductModel> getProductList({required int page}) async {
+  Future<ProductModel> getProductList({required int page, String? search}) async {
     try {
-      final response = await dioClient.get('/products', queryParameters: {'page': page, 'pageSize': 10});
+      final response = await dioClient.get('/products', queryParameters: {'page': page, 'pageSize': 10, if (search != null) 'search': search});
 
       return ProductModel.fromJson(response.data);
     } on DioException catch (e) {

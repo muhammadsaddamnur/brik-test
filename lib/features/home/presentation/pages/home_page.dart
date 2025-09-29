@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   final lengthController = TextEditingController();
   final heightController = TextEditingController();
   final descController = TextEditingController();
+  Timer? _debounce;
 
   cleanControllers() {
     nameController.clear();
@@ -78,6 +80,21 @@ class _HomePageState extends State<HomePage> {
               builder: (context, state) {
                 return CustomScrollView(
                   slivers: [
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextfieldWidget(
+                          hint: 'Search product',
+                          onChanged: (value) async {
+                            /// Debounce search to avoid excessive API calls
+                            if (_debounce?.isActive ?? false) _debounce!.cancel();
+                            _debounce = Timer(const Duration(milliseconds: 500), () {
+                              homeCubit.getProductList(search: value, isRefresh: true);
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                     SliverInfiniteList(
                       itemCount: state.productModel?.products?.length ?? 0,
                       onFetchData: () {

@@ -17,7 +17,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required this.getProductListUseCase, required this.saveProductUseCase, required this.deleteProductUseCase, required this.updateProductUseCase}) : super(const HomeState());
 
   /// Get product list
-  Future<void> getProductList({bool isRefresh = false}) async {
+  Future<void> getProductList({bool isRefresh = false, String? search}) async {
     if (isRefresh) {
       page = 1;
       emit(HomeState(productModel: null, isLoading: true, hasReachedMax: false, error: null));
@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     emit(HomeState(productModel: state.productModel, isLoading: true));
 
-    final result = await getProductListUseCase(page: page);
+    final result = await getProductListUseCase(page: page, search: search);
 
     result.fold((failure) => emit(HomeState(error: failure.message)), (productModel) {
       if (productModel.products == null) {

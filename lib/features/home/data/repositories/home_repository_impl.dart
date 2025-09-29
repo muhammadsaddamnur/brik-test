@@ -22,10 +22,10 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, ProductModel>> getProductList({required int page}) async {
+  Future<Either<Failure, ProductModel>> getProductList({required int page, String? search}) async {
     try {
       /// Get product list from remote data source
-      final productModel = await remoteDataSource.getProductList(page: page);
+      final productModel = await remoteDataSource.getProductList(page: page, search: search);
 
       return Right(productModel);
     } on Exception catch (e) {
