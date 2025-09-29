@@ -69,14 +69,18 @@ class MockGetProductListUseCase extends _i1.Mock
   @override
   _i5.Future<_i3.Either<_i6.Failure, _i7.ProductModel>> call({
     required int? page,
+    String? search,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#call, [], {#page: page}),
+            Invocation.method(#call, [], {#page: page, #search: search}),
             returnValue:
                 _i5.Future<_i3.Either<_i6.Failure, _i7.ProductModel>>.value(
                   _FakeEither_1<_i6.Failure, _i7.ProductModel>(
                     this,
-                    Invocation.method(#call, [], {#page: page}),
+                    Invocation.method(#call, [], {
+                      #page: page,
+                      #search: search,
+                    }),
                   ),
                 ),
           )

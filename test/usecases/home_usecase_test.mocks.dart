@@ -58,14 +58,21 @@ class MockHomeRepository extends _i1.Mock implements _i3.HomeRepository {
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.ProductModel>> getProductList({
     required int? page,
+    String? search,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#getProductList, [], {#page: page}),
+            Invocation.method(#getProductList, [], {
+              #page: page,
+              #search: search,
+            }),
             returnValue:
                 _i4.Future<_i2.Either<_i5.Failure, _i6.ProductModel>>.value(
                   _FakeEither_0<_i5.Failure, _i6.ProductModel>(
                     this,
-                    Invocation.method(#getProductList, [], {#page: page}),
+                    Invocation.method(#getProductList, [], {
+                      #page: page,
+                      #search: search,
+                    }),
                   ),
                 ),
           )

@@ -13,12 +13,7 @@ import 'package:store/features/home/presentation/bloc/home_state.dart';
 
 import 'home_cubit_test.mocks.dart';
 
-@GenerateMocks([
-  GetProductListUseCase,
-  SaveProductUseCase,
-  DeleteProductUseCase,
-  UpdateProductUseCase
-])
+@GenerateMocks([GetProductListUseCase, SaveProductUseCase, DeleteProductUseCase, UpdateProductUseCase])
 void main() {
   late HomeCubit homeCubit;
   late MockGetProductListUseCase mockGetProductListUseCase;
@@ -53,8 +48,7 @@ void main() {
 
     test('should emit loading and then loaded state when data is gotten successfully', () async {
       // arrange
-      when(mockGetProductListUseCase(page: 1))
-          .thenAnswer((_) async => Right(tProductModel));
+      when(mockGetProductListUseCase(page: 1)).thenAnswer((_) async => Right(tProductModel));
 
       // act
       await homeCubit.getProductList();
@@ -68,8 +62,7 @@ void main() {
     test('should emit error state when getting data fails', () async {
       // arrange
       final failure = ServerFailure(message: 'Server error');
-      when(mockGetProductListUseCase(page: 1))
-          .thenAnswer((_) async => Left(failure));
+      when(mockGetProductListUseCase(page: 1)).thenAnswer((_) async => Left(failure));
 
       // act
       await homeCubit.getProductList();
